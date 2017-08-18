@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class DirectCycle {
     private bool[] inStack;
-    private List<Stack<Vertex>> cycleList;//电流环
+    private List<List<Vertex>> cycleList;//电流环
     private int[] edgeTo;
-    private bool[] isMarked;
     int[] color;//黑白灰找环
     public DirectCycle(DirectGraph g)
     {
         inStack = new bool[g.getVertexCount()];
         edgeTo = new int[g.getVertexCount()];
-        isMarked = new bool[g.getVertexCount()];
         color = new int[g.getVertexCount()];
-        cycleList = new List<Stack<Vertex>>();
+        cycleList = new List<List<Vertex>>();
         for (int i = 0; i < g.getVertexCount(); i++)
         {
             if (color[i] == 0)
@@ -28,7 +26,6 @@ public class DirectCycle {
 
     private void dfs(DirectGraph g, int begin)
     {
-        isMarked[begin] = true;
         inStack[begin] = true;
         foreach (ElecEdge e in g.getAdj(begin))
         {
@@ -44,14 +41,12 @@ public class DirectCycle {
             else if (color[node] == -1)
             { // 如果当前路径Stack中含有node，又再次访问的话，说明有环  
               // 将环保存下来  
-                Stack<Vertex> cycle = new Stack<Vertex>();
+                List<Vertex> cycle = new List<Vertex>();
                 for (int i = begin; i != node; i = edgeTo[i])
                 {
-                    cycle.Push(g.getVertex(i));
-                    Debug.Log("访问环点：" + i + " ");
+                    cycle.Add(g.getVertex(i));
                 }
-                Debug.Log("访问环点：" + node + " ");
-                cycle.Push(g.getVertex(node));
+                cycle.Add(g.getVertex(node));
                 cycleList.Add(cycle);
             }
         }
@@ -74,7 +69,7 @@ public class DirectCycle {
         {
             for (int j = cycleList[i].Count-1; j >=0 ; j--)
             {
-                sb.Append(cycleList[i].Pop().index + "————>");
+                sb.Append(cycleList[i][j].index + "————>");
             }
             sb.Append("\n");
         }
@@ -124,7 +119,7 @@ public class DirectCycle {
         Debug.Log("断路！请链接电池！");
         return false;
     }
-    bool CheckBattery(Stack<Vertex> ring, Vertex battery)
+    bool CheckBattery(List<Vertex> ring, Vertex battery)
     {
         return ring.Contains(battery);
     }

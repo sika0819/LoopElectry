@@ -75,7 +75,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\CycleCheck.cs" />
+    <Compile Include="Assets\Script\DepthFirstOrder.cs" />
     <Compile Include="Assets\Script\DirectCycle.cs" />
+    <Compile Include="Assets\Script\DirectDFS.cs" />
     <Compile Include="Assets\Script\DirectGraph.cs" />
     <Compile Include="Assets\Script\Edge.cs" />
     <Compile Include="Assets\Script\ElecEdge.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Assets\Script\LineGraph.cs" />
     <Compile Include="Assets\Script\Node.cs" />
     <Compile Include="Assets\Script\Test.cs" />
+    <Compile Include="Assets\Script\TransitiveClosure.cs" />
     <Compile Include="Assets\Script\Vertex.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

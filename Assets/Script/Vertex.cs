@@ -18,4 +18,13 @@ public class Vertex {
     public void setElectry(int e) {
         electry = e;//当前点电流
     }
+    public ElecEdge head {
+        get {
+            if (adj.Count > 0)
+                return adj[0];
+            else
+                return null;
+        }
+    }
+    
 }
